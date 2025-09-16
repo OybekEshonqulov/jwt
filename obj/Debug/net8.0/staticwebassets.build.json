@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "ukYeca0ZSFFV3EK4gdipgrovNz/Io5CybJYgZHuUv2E=",
+  "Source": "jwtDocker",
+  "BasePath": "_content/jwtDocker",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

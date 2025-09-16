@@ -1,0 +1,14 @@
+﻿version: '3.9'
+
+services:
+  jwt-api:
+    build: .
+    container_name: jwt-api
+    ports:
+      - "5257:5257"   # HTTP
+      - "7237:7237"   # HTTPS
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - DOTNET_USE_POLLING_FILE_WATCHER=1
+      - DOTNET_RUNNING_IN_CONTAINER=true
+      - DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
