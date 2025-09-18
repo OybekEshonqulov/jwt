@@ -39,11 +39,11 @@ namespace jwtDocker.Controllers
         }
 
         // Himoyalangan endpoint (faqat token bilan kirish mumkin)
-        [HttpGet("secure")]
+        /*[HttpGet("secure")]
         [Microsoft.AspNetCore.Authorization.Authorize]
         public IActionResult SecureEndpoint()
         {
             return Ok($"Xush kelibsiz, {User.Identity?.Name}!");
-        }
+        }*/
     }
 }
