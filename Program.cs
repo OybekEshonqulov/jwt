@@ -11,7 +11,11 @@ namespace jwtDocker
         {
             var builder = WebApplication.CreateBuilder(args);   
 
-            builder.WebHost.UseUrls("http://0.0.0.0:5257", "https://0.0.0.0:7237");
+            builder.WebHost.ConfigureKestrel(options =>
+            {
+                options.ListenAnyIP(5257); // Faqat HTTP port
+                // options.ListenAnyIP(7237, listenOptions => listenOptions.UseHttps()); // HTTPSni olib tashla
+            });
 
 
             // Add services to the container.
