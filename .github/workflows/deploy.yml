@@ -35,11 +35,23 @@ jobs:
         username: ${{ secrets.SERVER_USERNAME }}
         key: ${{ secrets.SERVER_SSH_KEY }}
         script: |
+          # Docker Hub ga login
+          echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+          
+          # Yangi image ni olish
           docker pull ${{ secrets.DOCKERHUB_USERNAME }}/jwt-docker-app:latest
+          
+          # Eski containerni o'chirish
           docker stop jwt-app || true
           docker rm jwt-app || true
+          
+          # YANGI: To'g'ri port va environment bilan ishga tushurish
           docker run -d \
             --name jwt-app \
-            -p 8080:80 \
-            -e ASPNETCORE_ENVIRONMENT=Production \
+            -p 5257:5257 \  # ✅ To'g'ri port
+            -e ASPNETCORE_ENVIRONMENT=Development \  # ✅ Development mode
+            -e DOTNET_USE_POLLING_FILE_WATCHER=1 \
             ${{ secrets.DOCKERHUB_USERNAME }}/jwt-docker-app:latest
+          
+          # YANGI: Eski imagelarni tozalash
+          docker image prune -af
