@@ -10,6 +10,9 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
 COPY --from=build /app .
 
+# Environment variable - Development default qilish
+ENV ASPNETCORE_ENVIRONMENT=Development
+
 # API konteyner ichida shu portlarda tinglaydi
 EXPOSE 5257
 
