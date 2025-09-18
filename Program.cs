@@ -9,15 +9,16 @@ namespace jwtDocker
     {
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
+            var builder = WebApplication.CreateBuilder(args);   
 
+            builder.WebHost.UseUrls("http://0.0.0.0:5257", "https://0.0.0.0:7237");
 
 
             // Add services to the container.
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-
+              
             // Swagger config
             builder.Services.AddSwaggerGen(c =>
             {
