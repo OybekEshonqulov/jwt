@@ -23,7 +23,7 @@ namespace jwtDocker
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
               
-            // Swagger config - YANGILANDI ✅
+            // Swagger config - YANGILANDI 
             builder.Services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { 

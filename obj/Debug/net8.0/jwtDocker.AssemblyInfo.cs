@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("jwtDocker")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b3ef44aab0a460955ba7b41ce05ce5bbf0c203b5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+24c37bb5eedbde53c880833b2eb29ce719239245")]
 [assembly: System.Reflection.AssemblyProductAttribute("jwtDocker")]
 [assembly: System.Reflection.AssemblyTitleAttribute("jwtDocker")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
