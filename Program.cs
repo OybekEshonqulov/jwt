@@ -126,7 +126,7 @@ namespace jwtDocker
                     version = "1.0" 
                 });
             });
-
+//top
             // System status endpointi
             app.MapGet("/api/system/status", () =>
             {
