@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
+
 namespace jwtDocker.Controllers
 {
     [ApiController]
@@ -9,7 +10,7 @@ namespace jwtDocker.Controllers
     {
         private readonly string backupPath = "/var/backups/postgres/";
 
-        // Himoyalangan endpoint (faqat token bilan kirish mumkin)
+        // Himoyalangan endpoint (faqat Admin token bilan kirish mumkin)
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public IActionResult GetBackups()
@@ -21,10 +22,10 @@ namespace jwtDocker.Controllers
                 .Select(f => new
                 {
                     FileName = Path.GetFileName(f),
-                    SizeKB = new FileInfo(f).Length / 1024,
-                    CreatedAt = System.IO.File.GetCreationTime(f)
+                    SizeKB = Math.Round(new FileInfo(f).Length / 1024.0, 2),
+                    LastModified = System.IO.File.GetLastWriteTime(f)
                 })
-                .OrderByDescending(f => f.CreatedAt)
+                .OrderByDescending(f => f.LastModified)
                 .ToList();
 
             return Ok(files);
