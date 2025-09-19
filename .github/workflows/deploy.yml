@@ -1,8 +1,8 @@
-name: Build and Deploy Docker Image
+name: Build and Deploy Docker
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build-and-deploy:
@@ -29,7 +29,7 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/jwt-docker-app:latest
 
       - name: Deploy to Server
-        uses: appleboy/ssh-action@v0.1.6
+        uses: appleboy/ssh-action@0.1.6
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME }}
@@ -37,22 +37,39 @@ jobs:
           script: |
             # Docker Hub ga login
             echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
-            
+
             # Yangi image ni olish
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/jwt-docker-app:latest
-            
+
             # Eski containerni o'chirish
             docker stop jwt-app || true
             docker rm jwt-app || true
-            
-            # Yangi container ishga tushurish
+
+            # Log papkasini yaratish (host machine da)
+            mkdir -p /home/oybek/docker_logs
+            chmod 755 /home/oybek/docker_logs
+
+            # Yangi container ishga tushurish (LOGLAR BILAN)
             docker run -d \
               --name jwt-app \
               -p 5257:5257 \
+              -v /home/oybek/docker_logs:/app/logs \
               -e ASPNETCORE_ENVIRONMENT=Development \
               -e DOTNET_USE_POLLING_FILE_WATCHER=1 \
               ${{ secrets.DOCKERHUB_USERNAME }}/jwt-docker-app:latest
-            
+
             # Eski imagelarni tozalash
             docker image prune -af
 
+            # Container ishga tushganini tekshirish
+            sleep 10
+            echo "=== Container Status ==="
+            docker ps --filter "name=jwt-app"
+
+            echo "=== Container Logs ==="
+            docker logs jwt-app --tail 20
+
+            echo "=== Log Files Created ==="
+            ls -la /home/oybek/docker_logs/
+
+            echo "✅ Deployment completed with logging!"
